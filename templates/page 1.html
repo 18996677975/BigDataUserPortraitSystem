@@ -1,0 +1,1255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>大数据画像系统</title>
+    <link rel="stylesheet" type="text/css" href="../static/css/cssPage1.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/98/animate.min.css">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <script type="text/javascript" src="https://assets.pyecharts.org/assets/echarts.min.js"></script>
+    <script type="text/javascript" src="https://assets.pyecharts.org/assets/maps/china.js"></script>
+    <meta name="keywords" content="百度地图,百度地图API，百度地图自定义工具，百度地图所见即所得工具"/>
+    <meta name="description" content="百度地图API自定义地图，帮助用户在可视化操作下生成百度地图"/>
+    <title>百度地图API自定义地图</title>
+    <!--引用百度地图API-->
+    <script type="text/javascript"
+            src="http://api.map.baidu.com/api?v=2.0&ak=QhiwGr00qlxirsYCfGbeOLpPGezSu3Co"></script>
+</head>
+<body>
+<div class="main">
+    <header>
+        <nav class="navigation">
+            <div class="logo"></div>
+            <ul>
+                <li>
+                    <button onclick="firstpage()">首页</button>
+                </li>
+                <li>
+                    <button onclick="service()">联营合作</button>
+                </li>
+                <li>
+                    <button onclick="aboutus()">关于我们</button>
+                </li>
+                <li>
+                    <button onclick="connectus()">联系我们</button>
+                </li>
+            </ul>
+        </nav>
+    </header>
+</div>
+
+<div class="mid_top" id="first" style="display: block">
+    <div class="banner"></div>
+    <div class="segment"><img src="../static/images/1_1_2.gif"
+                              style="margin-top:100px;margin-bottom:100px;margin-left: 380px;width:1080px;height: 200px">
+    </div>
+    <!--提示弹框-->
+    <div id="popDiv" style="visibility: hidden; overflow: hidden;
+     height: 900px; width: 100%; background-color: rgba(211, 211, 208, 0.5);
+      position: absolute; z-index: 3">
+        <div id="pop" style="width: 500px; height: 235px; margin-top: 16%; margin-left: 38%; position: absolute;
+        overflow: hidden; border: 1px solid #000000; border-radius: 10px; background-color: #FFFFFF; padding: 1px; z-index: 3">
+            <div id="popTitle" style="background: #000000; height: 30%;
+            line-height: 25px; padding-left: 5px; text-align: center;"> <!-- 标题div -->
+                <br>
+                <font class="title"
+                      style="font-size:32px;color: #FFFFFF;font-family: 楷体;letter-spacing:24px;">提示</font>
+            </div>
+            <div id="popForm" style="padding: 5px;"> <!-- 表单div -->
+                <form id="city" action="{{ url_for('select') }}" method="post" target="_blank">
+                    <br>
+                    <p style="font-size: 24px">
+                        &nbsp;您是否想要进入该城市个人画像查询系统？
+                    </p>
+                    <br><br>
+                    <input type="submit" name="city_select" style="float: left; margin-left: 20%; font-size: 20px"
+                           value="" id="city_select" onclick="hidePopup()"/>
+                    <input type="reset" value="关闭" style="float: right; margin-right: 20%; font-size: 20px"
+                           onclick="hidePopup()"/>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!--地图部分-->
+    <div id="4f6ab1d860284a43b55308d524b573d4" class="chart-container" style="width:100%; height:900px;"></div>
+    <div class="bottom1">
+        <div class="logo" style="display: inline-block;">
+            <div style="float: right; margin-top:35px; margin-left:600px; color: white; position: absolute;">
+                <p style="font-size: 22px">电话:123456789&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    邮箱:233333333@qq.com&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    地址:重庆理工大学</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="mid_top2" id="two" style="display: none">
+    <div class="animate box">
+        <span style="font-size: 100px; font-family: 幼圆;">敬请期待</span>
+    </div>
+    <div class="bottom2">
+        <div class="logo" style="display: inline-block;">
+            <div style="float: right;margin-top:35px;margin-left:600px;color: white;position: absolute;">
+                <p style="font-size: 22px">电话:123456789&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    邮箱:233333333@qq.com&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    地址:重庆理工大学</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="mid_top3" id="three" style="display: none">
+    <div class="sign box"><span style="font-size: 100px;font-family: 幼圆;">关于我们 </span><br>
+        <span style="font-size: 45px;font-family:幼圆;">国内大数据画像系统的领跑者</span></div>
+    <div class="travelType">
+        <div class="left1"><img src="../static/images/1_3_2.png" style="width: 960px;height: 600px;"/></div>
+        <div class="right1"><img src="../static/images/1_3_3.png" style="width: 960px;height: 600px;"/></div>
+        <div class="dream1" data-animate="bounceInRight,3.5s,linear">
+            <div class="text1"><p style="font-family: 华文楷体;font-size: 45px;">ABOUT US</p><br>
+                <p style="font-family: 华文楷体; font-size: 20px;">
+                    我们是大数据画像系统服务品牌，是全国少有的拥有自助研发实力的品牌。我们打破了传统的建站技术壁垒、让客户可以随时通过可视化内容了解信息，
+                    我们凭借优秀的研发能力，已在全国各地获得20000+企业的信任，同时覆盖40个城市拥有150+代理商。不仅帮助上市公司建立大数据画像系统，同时也助力于中小企业建立品牌。</p></div>
+        </div>
+        <div class="dream2" data-animate="bounceInLeft,4.5s,linear">
+            <div class="text2"><p style="font-family: 华文楷体;font-size: 45px;">新一代大数据画像系统</p><br>
+                <p style="font-family: 华文楷体;font-size: 20px;">功能：画像多维度分析、画像指标下钻分析、投放效果追踪分析 技术：基于es 、spark、hadoop
+                    建设画像计算，以及数据存储和计算 模块：用户人群包（交集并集）、追踪分析、人群画像、人群对比模块开发。</p></div>
+        </div>
+    </div>
+    <div class="bottom3">
+        <div class="logo" style="display: inline-block;">
+            <div style="float: right;margin-top:35px;margin-left:600px;color: white;position: absolute;">
+                <p style="font-size: 22px">电话:123456789&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    邮箱:233333333@qq.com&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    地址:重庆理工大学</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+{#联系我们#}
+<div class="mid_top4" id="four" style="display: none">
+    <div class="sign box"><span style="font-size: 100px;font-family: 幼圆;">联系我们</span><br>
+        <span style="font-size: 45px; font-family: 幼圆;">您的一个电话，剩下的交给我</span></div>
+    <div class="pic1"><img src="../static/images/1_4_2.png" style="height:100px;width:115px"><br>
+        <div class="call"><h3 style="text-align: center;">联系方式：</h3><br>123456789</div>
+    </div>
+    <div class="pic2"><img src="../static/images/1_4_3.png" style="height:100px;width:115px"><br>
+        <div class="email"><h3 style="text-align:center;">电子邮箱：</h3><br>23333333@qq.com</div>
+    </div>
+    <div class="pic3"><img src="../static/images/1_4_4.png" style="height:100px;width:115px"><br>
+        <div class="address"><h3 style="text-align:center;">公司地址：</h3><br>重庆理工大学</div>
+    </div>
+    <!--百度地图容器-->
+    <div style="width:100%;height:600px;border:#ccc solid 1px;font-size:12px" id="map"></div>
+    <div class="bottom4">
+        <div class="logo" style="display: inline-block;">
+            <div style="float: right;margin-top:35px;margin-left:600px;color: white;position: absolute;">
+                <p style="font-size: 22px">电话:123456789&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    邮箱:233333333@qq.com&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    地址:重庆理工大学</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="../static/js/jquery-3.4.1.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" src="../static/js/trans.js"></script>
+<script type="text/javascript">
+    //导航栏设置
+    $(window).scroll(function () {
+        if ($(window).scrollTop() > 190) {
+            $('.navigation').addClass("sticky");
+        } else {
+            $('.navigation').removeClass("sticky");
+        }
+
+        if ($(window).scrollTop() > 200) {
+            $('.navigation').addClass("offset");
+        } else {
+            $('.navigation').removeClass("offset");
+        }
+
+        if ($(window).scrollTop() > 500) {
+            $('.navigation').addClass("scrolling");
+        } else {
+            $('.navigation').removeClass("scrolling");
+        }
+    });
+    <!--动画效果-->
+    // 获取浏览器可见区域高度
+    var window_height = document.documentElement.clientHeight;
+    // 用户手动修改浏览器可见区域高度时修改变量
+    window.onresize = function () {
+        window_height = document.documentElement.clientHeight;
+    };
+    // 获取所需效果元素
+    var My_dream = document.getElementsByClassName('dream1');
+    // 鼠标滚轮滚动执行方法
+    window.onscroll = function () {
+        // 获取鼠标滚轮滚动距离
+        var _scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
+        // 循环类dream
+        for (var k = 0; k < My_dream.length; k++) {
+            if (_scrollTop >= getOffsetTop(My_dream[k]) - window_height && _scrollTop <= getOffsetTop(My_dream[k])) {
+                My_dream[k].style.animationName = My_dream[k].dataset.animate.split(',')[0];
+                My_dream[k].style.animationDuration = My_dream[k].dataset.animate.split(',')[1];
+                My_dream[k].style.animationTimingFunction = My_dream[k].dataset.animate.split(',')[2];
+            }
+        }
+    };
+
+    // 判断元素父集是否有已定位元素
+    function getOffsetTop(ele) {
+        var rtn = ele.offsetTop;
+        var o = ele.offsetParent;
+        while (o != null) {
+            rtn += o.offsetTop;
+            o = o.offsetParent;
+        }
+        return rtn;
+    }
+
+    // 滚动条等于0时执行第一屏效果
+    function my_animation() {
+        var _scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
+        // 效果方法
+        for (var k = 0; k < My_dream.length; k++) {
+            if (_scrollTop >= getOffsetTop(My_dream[k]) - window_height && _scrollTop <= getOffsetTop(My_dream[k])) {
+                My_dream[k].style.animationName = My_dream[k].dataset.animate.split(',')[0];
+                My_dream[k].style.animationDuration = My_dream[k].dataset.animate.split(',')[1];
+                My_dream[k].style.animationTimingFunction = My_dream[k].dataset.animate.split(',')[2];
+            }
+        }
+    }
+
+    my_animation();
+    //另一个
+    // 获取浏览器可见区域高度
+    var window_height = document.documentElement.clientHeight;
+    // 用户手动修改浏览器可见区域高度时修改变量
+    window.onresize = function () {
+        window_height = document.documentElement.clientHeight;
+    };
+    // 获取所需效果元素
+    var My_dream = document.getElementsByClassName('dream2');
+    // 鼠标滚轮滚动执行方法
+    window.onscroll = function () {
+        // 获取鼠标滚轮滚动距离
+        var _scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
+        // 循环类dream
+        for (var k = 0; k < My_dream.length; k++) {
+            if (_scrollTop >= getOffsetTop(My_dream[k]) - window_height && _scrollTop <= getOffsetTop(My_dream[k])) {
+                My_dream[k].style.animationName = My_dream[k].dataset.animate.split(',')[0];
+                My_dream[k].style.animationDuration = My_dream[k].dataset.animate.split(',')[1];
+                My_dream[k].style.animationTimingFunction = My_dream[k].dataset.animate.split(',')[2];
+            }
+        }
+    };
+
+    // 判断元素父集是否有已定位元素
+    function getOffsetTop(ele) {
+        var rtn = ele.offsetTop;
+        var o = ele.offsetParent;
+        while (o != null) {
+            rtn += o.offsetTop;
+            o = o.offsetParent;
+        }
+        return rtn;
+    }
+
+    // 滚动条等于0时执行第一屏效果
+    function my_animation() {
+        var _scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
+        // 效果方法
+        for (var k = 0; k < My_dream.length; k++) {
+            if (_scrollTop >= getOffsetTop(My_dream[k]) - window_height && _scrollTop <= getOffsetTop(My_dream[k])) {
+                My_dream[k].style.animationName = My_dream[k].dataset.animate.split(',')[0];
+                My_dream[k].style.animationDuration = My_dream[k].dataset.animate.split(',')[1];
+                My_dream[k].style.animationTimingFunction = My_dream[k].dataset.animate.split(',')[2];
+            }
+        }
+    }
+
+    my_animation();
+
+    //创建和初始化地图函数：
+    function initMap() {
+        createMap();//创建地图
+        setMapEvent();//设置地图事件
+        addMapControl();//向地图添加控件
+        addMapOverlay();//向地图添加覆盖物
+    }
+
+    function createMap() {
+        map = new BMap.Map("map");
+        map.centerAndZoom(new BMap.Point(106.778386, 29.714153), 12);
+    }
+
+    function setMapEvent() {
+        map.enableScrollWheelZoom();
+        map.enableKeyboard();
+        map.enableDragging();
+        map.enableDoubleClickZoom()
+    }
+
+    function addClickHandler(target, window) {
+        target.addEventListener("click", function () {
+            target.openInfoWindow(window);
+        });
+    }
+
+    function addMapOverlay() {
+        var markers = [
+            {
+                content: "",
+                title: "重庆理工大学两江校区",
+                imageOffset: {width: 0, height: 3},
+                position: {lat: 29.734352, lng: 106.775512}
+            }
+        ];
+        for (var index = 0; index < markers.length; index++) {
+            var point = new BMap.Point(markers[index].position.lng, markers[index].position.lat);
+            var marker = new BMap.Marker(point, {
+                icon: new BMap.Icon("http://api.map.baidu.com/lbsapi/createmap/images/icon.png", new BMap.Size(20, 25), {
+                    imageOffset: new BMap.Size(markers[index].imageOffset.width, markers[index].imageOffset.height)
+                })
+            });
+            var label = new BMap.Label(markers[index].title, {offset: new BMap.Size(25, 5)});
+            var opts = {
+                width: 200,
+                title: markers[index].title,
+                enableMessage: false
+            };
+            var infoWindow = new BMap.InfoWindow(markers[index].content, opts);
+            marker.setLabel(label);
+            addClickHandler(marker, infoWindow);
+            map.addOverlay(marker);
+        }
+        ;
+    }
+
+    //向地图添加控件
+    function addMapControl() {
+        var scaleControl = new BMap.ScaleControl({anchor: BMAP_ANCHOR_BOTTOM_LEFT});
+        scaleControl.setUnit(BMAP_UNIT_METRIC);
+        map.addControl(scaleControl);
+        var navControl = new BMap.NavigationControl({anchor: BMAP_ANCHOR_TOP_LEFT, type: 0});
+        map.addControl(navControl);
+        var overviewControl = new BMap.OverviewMapControl({anchor: BMAP_ANCHOR_BOTTOM_RIGHT, isOpen: true});
+        map.addControl(overviewControl);
+    }
+
+    var map;
+    initMap();
+    //地图
+    //关闭按钮函数
+    function hidePopup() {
+        document.getElementById('popDiv').style.visibility = 'hidden';
+    }
+
+    //设置地图背景图片位置！！！
+    var img = new Image();
+    img.src = '../static/images/1_1_3.jpg';
+    img.width = '100%';
+    img.height = '100%';
+
+    //绘图
+    var chart_4f6ab1d860284a43b55308d524b573d4 = echarts.init(
+        document.getElementById('4f6ab1d860284a43b55308d524b573d4'), 'dark', {renderer: 'canvas'});
+    var option_4f6ab1d860284a43b55308d524b573d4 = {
+        "animation": true,
+        "animationThreshold": 2000,
+        "animationDuration": 1000,
+        "animationEasing": "cubicOut",
+        "animationDelay": 0,
+        "animationDurationUpdate": 300,
+        "animationEasingUpdate": "cubicOut",
+        "animationDelayUpdate": 0,
+        backgroundColor: {
+            image: img
+        },
+        //backgroundColor:"#000000",//全局背景颜色设置
+        "color": [],
+        "series": [
+            {
+                "type": "bar",
+                "xAxisIndex": 0,
+                "yAxisIndex": 0,
+                "data": [
+                    {
+                        "name": "\u5317\u4eac",
+                        "value": 157831.0
+                    },
+                    {
+                        "name": "\u4e0a\u6d77",
+                        "value": 152688.0
+                    },
+                    {
+                        "name": "\u897f\u85cf",
+                        "value": 125429.0
+                    },
+                    {
+                        "name": "\u5929\u6d25",
+                        "value": 109665.0
+                    },
+                    {
+                        "name": "\u9999\u6e2f",
+                        "value": 108930.0
+                    },
+                    {
+                        "name": "\u6d59\u6c5f",
+                        "value": 96175.0
+                    },
+                    {
+                        "name": "\u5e7f\u4e1c",
+                        "value": 94937.0
+                    },
+                    {
+                        "name": "\u9752\u6d77",
+                        "value": 92597.0
+                    },
+                    {
+                        "name": "\u6c5f\u82cf",
+                        "value": 91848.0
+                    },
+                    {
+                        "name": "\u91cd\u5e86",
+                        "value": 88590.0
+                    },
+                    {
+                        "name": "\u5b81\u590f",
+                        "value": 85342.0
+                    },
+                    {
+                        "name": "\u53f0\u6e7e",
+                        "value": 84293.0
+                    },
+                    {
+                        "name": "\u8d35\u5dde",
+                        "value": 84255.0
+                    },
+                    {
+                        "name": "\u56db\u5ddd",
+                        "value": 84094.0
+                    },
+                    {
+                        "name": "\u6d77\u5357",
+                        "value": 82376.0
+                    },
+                    {
+                        "name": "\u6fb3\u95e8",
+                        "value": 82043.0
+                    },
+                    {
+                        "name": "\u798f\u5efa",
+                        "value": 81579.0
+                    },
+                    {
+                        "name": "\u65b0\u7586",
+                        "value": 81103.0
+                    },
+                    {
+                        "name": "\u4e91\u5357",
+                        "value": 80947.0
+                    },
+                    {
+                        "name": "\u5b89\u5fbd",
+                        "value": 80827.0
+                    },
+                    {
+                        "name": "\u6e56\u5317",
+                        "value": 80808.0
+                    },
+                    {
+                        "name": "\u5185\u8499\u53e4",
+                        "value": 80237.0
+                    },
+                    {
+                        "name": "\u5c71\u4e1c",
+                        "value": 79998.0
+                    },
+                    {
+                        "name": "\u9655\u897f",
+                        "value": 78008.0
+                    },
+                    {
+                        "name": "\u7518\u8083",
+                        "value": 77198.0
+                    },
+                    {
+                        "name": "\u5e7f\u897f",
+                        "value": 76038.0
+                    },
+                    {
+                        "name": "\u6e56\u5357",
+                        "value": 75808.0
+                    },
+                    {
+                        "name": "\u5409\u6797",
+                        "value": 74668.0
+                    },
+                    {
+                        "name": "\u6cb3\u5317",
+                        "value": 74365.0
+                    },
+                    {
+                        "name": "\u6c5f\u897f",
+                        "value": 74160.0
+                    },
+                    {
+                        "name": "\u8fbd\u5b81",
+                        "value": 72367.0
+                    },
+                    {
+                        "name": "\u5c71\u897f",
+                        "value": 71331.0
+                    },
+                    {
+                        "name": "\u6cb3\u5357",
+                        "value": 68400.0
+                    },
+                    {
+                        "name": "\u9ed1\u9f99\u6c5f",
+                        "value": 65965.0
+                    }
+                ],
+                "barCategoryGap": "20%",
+                "label": {
+                    "show": true,
+                    color: "rgb(255,255,255)",
+                    "position": "right",
+                    "margin": 8,
+                    "formatter": "{b}: {c}"
+                }
+            },
+            {
+                "type": "pie",
+                "clockwise": true,
+                "data": [
+                    {
+                        "name": "\u5317\u4eac",
+                        "value": 157831.0
+                    },
+                    {
+                        "name": "\u4e0a\u6d77",
+                        "value": 152688.0
+                    },
+                    {
+                        "name": "\u897f\u85cf",
+                        "value": 125429.0
+                    },
+                    {
+                        "name": "\u5929\u6d25",
+                        "value": 109665.0
+                    },
+                    {
+                        "name": "\u9999\u6e2f",
+                        "value": 108930.0
+                    },
+                    {
+                        "name": "\u6d59\u6c5f",
+                        "value": 96175.0
+                    },
+                    {
+                        "name": "\u5e7f\u4e1c",
+                        "value": 94937.0
+                    },
+                    {
+                        "name": "\u9752\u6d77",
+                        "value": 92597.0
+                    },
+                    {
+                        "name": "\u6c5f\u82cf",
+                        "value": 91848.0
+                    },
+                    {
+                        "name": "\u91cd\u5e86",
+                        "value": 88590.0
+                    },
+                    {
+                        "name": "\u5b81\u590f",
+                        "value": 85342.0
+                    },
+                    {
+                        "name": "\u53f0\u6e7e",
+                        "value": 84293.0
+                    },
+                    {
+                        "name": "\u8d35\u5dde",
+                        "value": 84255.0
+                    },
+                    {
+                        "name": "\u56db\u5ddd",
+                        "value": 84094.0
+                    },
+                    {
+                        "name": "\u6d77\u5357",
+                        "value": 82376.0
+                    },
+                    {
+                        "name": "\u6fb3\u95e8",
+                        "value": 82043.0
+                    },
+                    {
+                        "name": "\u798f\u5efa",
+                        "value": 81579.0
+                    },
+                    {
+                        "name": "\u65b0\u7586",
+                        "value": 81103.0
+                    },
+                    {
+                        "name": "\u4e91\u5357",
+                        "value": 80947.0
+                    },
+                    {
+                        "name": "\u5b89\u5fbd",
+                        "value": 80827.0
+                    },
+                    {
+                        "name": "\u6e56\u5317",
+                        "value": 80808.0
+                    },
+                    {
+                        "name": "\u5185\u8499\u53e4",
+                        "value": 80237.0
+                    },
+                    {
+                        "name": "\u5c71\u4e1c",
+                        "value": 79998.0
+                    },
+                    {
+                        "name": "\u9655\u897f",
+                        "value": 78008.0
+                    },
+                    {
+                        "name": "\u7518\u8083",
+                        "value": 77198.0
+                    },
+                    {
+                        "name": "\u5e7f\u897f",
+                        "value": 76038.0
+                    },
+                    {
+                        "name": "\u6e56\u5357",
+                        "value": 75808.0
+                    },
+                    {
+                        "name": "\u5409\u6797",
+                        "value": 74668.0
+                    },
+                    {
+                        "name": "\u6cb3\u5317",
+                        "value": 74365.0
+                    },
+                    {
+                        "name": "\u6c5f\u897f",
+                        "value": 74160.0
+                    },
+                    {
+                        "name": "\u8fbd\u5b81",
+                        "value": 72367.0
+                    },
+                    {
+                        "name": "\u5c71\u897f",
+                        "value": 71331.0
+                    },
+                    {
+                        "name": "\u6cb3\u5357",
+                        "value": 68400.0
+                    },
+                    {
+                        "name": "\u9ed1\u9f99\u6c5f",
+                        "value": 65965.0
+                    }
+                ],
+                "radius": [
+                    "12%",
+                    "20%"
+                ],
+                "center": [
+                    "88%",
+                    "50%"
+                ],
+                "label": {
+                    "show": true,
+                    "position": "top",
+                    "margin": 8
+                },
+                "itemStyle": {
+                    "borderColor": "rgba(255,255,255,0.3)",
+                    "borderWidth": 1
+                },
+                "xAxisIndex": 1,
+                "yAxisIndex": 1
+            },
+            {
+                "type": "map",
+                "label": {
+                    "show": false,
+                    "position": "top",
+                    "margin": 8
+                },
+                "mapType": "china",
+                "data": [
+                    {
+                        "name": "\u5317\u4eac",
+                        "value": [
+                            157831.0,
+                            0.052699923202778054,
+                            "\u5317\u4eac"
+                        ]
+                    },
+                    {
+                        "name": "\u4e0a\u6d77",
+                        "value": [
+                            152688.0,
+                            0.05098267053991786,
+                            "\u4e0a\u6d77"
+                        ]
+                    },
+                    {
+                        "name": "\u897f\u85cf",
+                        "value": [
+                            125429.0,
+                            0.04188086413569735,
+                            "\u897f\u85cf"
+                        ]
+                    },
+                    {
+                        "name": "\u5929\u6d25",
+                        "value": [
+                            109665.0,
+                            0.03661724932385055,
+                            "\u5929\u6d25"
+                        ]
+                    },
+                    {
+                        "name": "\u9999\u6e2f",
+                        "value": [
+                            108930.0,
+                            0.03637183211459481,
+                            "\u9999\u6e2f"
+                        ]
+                    },
+                    {
+                        "name": "\u6d59\u6c5f",
+                        "value": [
+                            96175.0,
+                            0.03211292530635414,
+                            "\u6d59\u6c5f"
+                        ]
+                    },
+                    {
+                        "name": "\u5e7f\u4e1c",
+                        "value": [
+                            94937.0,
+                            0.03169955591171658,
+                            "\u5e7f\u4e1c"
+                        ]
+                    },
+                    {
+                        "name": "\u9752\u6d77",
+                        "value": [
+                            92597.0,
+                            0.03091822765367792,
+                            "\u9752\u6d77"
+                        ]
+                    },
+                    {
+                        "name": "\u6c5f\u82cf",
+                        "value": [
+                            91848.0,
+                            0.03066813583091255,
+                            "\u6c5f\u82cf"
+                        ]
+                    },
+                    {
+                        "name": "\u91cd\u5e86",
+                        "value": [
+                            88590.0,
+                            0.029580286487027947,
+                            "\u91cd\u5e86"
+                        ]
+                    },
+                    {
+                        "name": "\u5b81\u590f",
+                        "value": [
+                            85342.0,
+                            0.02849577615279308,
+                            "\u5b81\u590f"
+                        ]
+                    },
+                    {
+                        "name": "\u53f0\u6e7e",
+                        "value": [
+                            84293.0,
+                            0.02814551404053558,
+                            "\u53f0\u6e7e"
+                        ]
+                    },
+                    {
+                        "name": "\u8d35\u5dde",
+                        "value": [
+                            84255.0,
+                            0.028132825803866574,
+                            "\u8d35\u5dde"
+                        ]
+                    },
+                    {
+                        "name": "\u56db\u5ddd",
+                        "value": [
+                            84094.0,
+                            0.028079067748505795,
+                            "\u56db\u5ddd"
+                        ]
+                    },
+                    {
+                        "name": "\u6d77\u5357",
+                        "value": [
+                            82376.0,
+                            0.027505425890680824,
+                            "\u6d77\u5357"
+                        ]
+                    },
+                    {
+                        "name": "\u6fb3\u95e8",
+                        "value": [
+                            82043.0,
+                            0.027394236869344554,
+                            "\u6fb3\u95e8"
+                        ]
+                    },
+                    {
+                        "name": "\u798f\u5efa",
+                        "value": [
+                            81579.0,
+                            0.027239306821596716,
+                            "\u798f\u5efa"
+                        ]
+                    },
+                    {
+                        "name": "\u65b0\u7586",
+                        "value": [
+                            81103.0,
+                            0.02708036996226919,
+                            "\u65b0\u7586"
+                        ]
+                    },
+                    {
+                        "name": "\u4e91\u5357",
+                        "value": [
+                            80947.0,
+                            0.02702828141173328,
+                            "\u4e91\u5357"
+                        ]
+                    },
+                    {
+                        "name": "\u5b89\u5fbd",
+                        "value": [
+                            80827.0,
+                            0.026988213295936425,
+                            "\u5b89\u5fbd"
+                        ]
+                    },
+                    {
+                        "name": "\u6e56\u5317",
+                        "value": [
+                            80808.0,
+                            0.026981869177601925,
+                            "\u6e56\u5317"
+                        ]
+                    },
+                    {
+                        "name": "\u5185\u8499\u53e4",
+                        "value": [
+                            80237.0,
+                            0.02679121172660189,
+                            "\u5185\u8499\u53e4"
+                        ]
+                    },
+                    {
+                        "name": "\u5c71\u4e1c",
+                        "value": [
+                            79998.0,
+                            0.026711409395973156,
+                            "\u5c71\u4e1c"
+                        ]
+                    },
+                    {
+                        "name": "\u9655\u897f",
+                        "value": [
+                            78008.0,
+                            0.026046946475675313,
+                            "\u9655\u897f"
+                        ]
+                    },
+                    {
+                        "name": "\u7518\u8083",
+                        "value": [
+                            77198.0,
+                            0.025776486694046547,
+                            "\u7518\u8083"
+                        ]
+                    },
+                    {
+                        "name": "\u5e7f\u897f",
+                        "value": [
+                            76038.0,
+                            0.025389161574676952,
+                            "\u5e7f\u897f"
+                        ]
+                    },
+                    {
+                        "name": "\u6e56\u5357",
+                        "value": [
+                            75808.0,
+                            0.02531236435273298,
+                            "\u6e56\u5357"
+                        ]
+                    },
+                    {
+                        "name": "\u5409\u6797",
+                        "value": [
+                            74668.0,
+                            0.024931717252662862,
+                            "\u5409\u6797"
+                        ]
+                    },
+                    {
+                        "name": "\u6cb3\u5317",
+                        "value": [
+                            74365.0,
+                            0.024830545260275803,
+                            "\u6cb3\u5317"
+                        ]
+                    },
+                    {
+                        "name": "\u6c5f\u897f",
+                        "value": [
+                            74160.0,
+                            0.024762095562456177,
+                            "\u6c5f\u897f"
+                        ]
+                    },
+                    {
+                        "name": "\u8fbd\u5b81",
+                        "value": [
+                            72367.0,
+                            0.024163411132258172,
+                            "\u8fbd\u5b81"
+                        ]
+                    },
+                    {
+                        "name": "\u5c71\u897f",
+                        "value": [
+                            71331.0,
+                            0.023817489732545327,
+                            "\u5c71\u897f"
+                        ]
+                    },
+                    {
+                        "name": "\u6cb3\u5357",
+                        "value": [
+                            68400.0,
+                            0.02283882600420715,
+                            "\u6cb3\u5357"
+                        ]
+                    },
+                    {
+                        "name": "\u9ed1\u9f99\u6c5f",
+                        "value": [
+                            65965.0,
+                            0.022025777154495975,
+                            "\u9ed1\u9f99\u6c5f"
+                        ]
+                    }
+                ],
+                "roam": false,//地图是否可缩放
+                "zoom": 1.2,//修改地图默认大小
+                "showLegendSymbol": false,
+                "itemStyle": {
+                    "normal": {
+                        "areaColor": "rgb(255,255,255)",
+                        "borderColor": "#404a59"
+                    },
+                    emphasis: {
+                        label: {
+                            show: true,
+                            textStyle: {
+                                color: "rgb(255,255,255)",
+                            }
+                        }
+                    }
+                },
+                "emphasis": {},
+                "xAxisIndex": 2,
+                "yAxisIndex": 2
+            }
+        ],
+        "legend": [
+            {
+                "data": [
+                    ""
+                ],
+                "selected": {
+                    "": true
+                },
+                "show": true,
+                "padding": 5,
+                "itemGap": 10,
+                "itemWidth": 25,
+                "itemHeight": 14
+            },
+            {
+                "data": [
+                    "\u5317\u4eac",
+                    "\u4e0a\u6d77",
+                    "\u897f\u85cf",
+                    "\u9999\u6e2f",
+                    "\u5929\u6d25",
+                    "\u6d59\u6c5f",
+                    "\u5e7f\u4e1c",
+                    "\u9752\u6d77",
+                    "\u6c5f\u82cf",
+                    "\u91cd\u5e86",
+                    "\u5b81\u590f",
+                    "\u8d35\u5dde",
+                    "\u56db\u5ddd",
+                    "\u6d77\u5357",
+                    "\u65b0\u7586",
+                    "\u4e91\u5357",
+                    "\u798f\u5efa",
+                    "\u5b89\u5fbd",
+                    "\u5185\u8499\u53e4",
+                    "\u5c71\u4e1c",
+                    "\u6fb3\u95e8",
+                    "\u6e56\u5317",
+                    "\u9655\u897f",
+                    "\u6e56\u5357",
+                    "\u5e7f\u897f",
+                    "\u7518\u8083",
+                    "\u53f0\u6e7e",
+                    "\u5409\u6797",
+                    "\u6cb3\u5317",
+                    "\u6c5f\u897f",
+                    "\u8fbd\u5b81",
+                    "\u5c71\u897f",
+                    "\u6cb3\u5357",
+                    "\u9ed1\u9f99\u6c5f"
+                ],
+                "selected": {},
+                "show": false,
+                "padding": 5,
+                "itemGap": 10,
+                "itemWidth": 25,
+                "itemHeight": 14
+            },
+            {
+                "data": [
+                    ""
+                ],
+                "selected": {
+                    "": true
+                },
+                "show": true,
+                "padding": 5,
+                "itemGap": 10,
+                "itemWidth": 25,
+                "itemHeight": 14
+            }
+        ],
+        "tooltip": {
+            "show": false,
+            "trigger": "item",
+            "triggerOn": "mousemove|click",
+            "axisPointer": {
+                "type": "line"
+            },
+            "textStyle": {
+                "fontSize": 14
+            },
+            "borderWidth": 0
+        },
+        "xAxis": [
+            {
+                "show": true,
+                "scale": false,
+                "nameLocation": "end",
+                "nameGap": 15,
+                "gridIndex": 0,
+                "axisLabel": {
+                    "show": false,
+                    "position": "top",
+                    "margin": 8
+                },
+                "inverse": false,
+                "offset": 0,
+                "splitNumber": 5,
+                "minInterval": 0,
+                "splitLine": {
+                    "show": false,
+                    "lineStyle": {
+                        "show": true,
+                        "width": 1,
+                        "opacity": 1,
+                        "curveness": 0,
+                        "type": "solid"
+                    }
+                }
+            }
+        ],
+        "yAxis": [
+            {
+                "show": true,
+                "scale": false,
+                "nameLocation": "end",
+                "nameGap": 15,
+                "gridIndex": 0,
+                "axisLabel": {
+                    "show": false,
+                    "position": "top",
+                    "margin": 8
+                },
+                "inverse": false,
+                "offset": 0,
+                "splitNumber": 5,
+                "minInterval": 0,
+                "splitLine": {
+                    "show": false,
+                    "lineStyle": {
+                        "show": true,
+                        "width": 1,
+                        "opacity": 1,
+                        "curveness": 0,
+                        "type": "solid"
+                    }
+                },
+                "data": [
+                    "\u5317\u4eac",
+                    "\u4e0a\u6d77",
+                    "\u897f\u85cf",
+                    "\u9999\u6e2f",
+                    "\u5929\u6d25",
+                    "\u6d59\u6c5f",
+                    "\u5e7f\u4e1c",
+                    "\u9752\u6d77",
+                    "\u6c5f\u82cf",
+                    "\u91cd\u5e86",
+                    "\u5b81\u590f",
+                    "\u8d35\u5dde",
+                    "\u56db\u5ddd",
+                    "\u6d77\u5357",
+                    "\u65b0\u7586",
+                    "\u4e91\u5357",
+                    "\u798f\u5efa",
+                    "\u5b89\u5fbd",
+                    "\u5185\u8499\u53e4",
+                    "\u5c71\u4e1c",
+                    "\u6fb3\u95e8",
+                    "\u6e56\u5317",
+                    "\u9655\u897f",
+                    "\u6e56\u5357",
+                    "\u5e7f\u897f",
+                    "\u7518\u8083",
+                    "\u53f0\u6e7e",
+                    "\u5409\u6797",
+                    "\u6cb3\u5317",
+                    "\u6c5f\u897f",
+                    "\u8fbd\u5b81",
+                    "\u5c71\u897f",
+                    "\u6cb3\u5357",
+                    "\u9ed1\u9f99\u6c5f"
+                ]
+            }
+        ],
+        //标题设置处！！！
+        "title": [
+            {
+                "padding": 5,
+                "itemGap": 20
+            },
+            {
+                "padding": 5,
+                "itemGap": 20
+            },
+            {
+                "text": "\u4e2d\u56fd\u5404\u7701\u4eba\u5747\u6536\u5165\u6392\u540d\u60c5\u51b5",
+                "left": "center",
+                "top": "top",
+                //标题内边距
+                padding: [
+                    50,  // 上
+                    10, // 右
+                    5,  // 下
+                    10, // 左
+                ],
+                "itemGap": 10,
+                "textStyle": {
+                    "color": "rgba(255,255,255, 0.9)", //标题颜色
+                    "fontSize": 35, //字号
+                    fontStyle: 'normal', //'italic','oblique' 字体风格
+                    fontWeight: 'normal',//字体粗细 'bold','bolder','lighter'
+                    fontFamily: 'Microsoft YaHei',//字体  'serif''monospace', 'Arial', 'Courier New', 'Microsoft YaHei',
+                }
+            }
+        ],
+        "visualMap": {
+            "show": true,
+            "type": "continuous",
+            "min": 66014.0,
+            "max": 157400.0,
+            "text": [
+                "High",
+                "Low"
+            ],
+            "textStyle": {
+                "color": "#ddd"
+            },
+            "inRange": {
+                "color": [
+                    "lightskyblue",
+                    "yellow",
+                    "orangered"
+                ]
+            },
+            "calculable": true,
+            "inverse": false,
+            "splitNumber": 5,
+            "dimension": 0,
+            "orient": "vertical",
+            "left": "10",
+            "top": "25%",
+            "showLabel": true,
+            "itemWidth": 20,
+            "itemHeight": 140,
+            "borderWidth": 0
+        },
+        "grid": [
+            {
+                "left": "10",
+                "top": "50%",
+                "right": "70%",
+                "bottom": "5",
+                "containLabel": false
+            },
+            {
+                "containLabel": false
+            },
+            {
+                "containLabel": false
+            }
+        ]
+    };
+    chart_4f6ab1d860284a43b55308d524b573d4.setOption(option_4f6ab1d860284a43b55308d524b573d4);
+    chart_4f6ab1d860284a43b55308d524b573d4.on("click", function (e) {
+        console.log(e);
+        var city_name = document.getElementById('city_select');
+        city_name.value = e.data.name;//获取点击处城市名称并赋值给表单的value
+        //弹出提示框，当点击城市按钮，即将城市名传递到后端
+        document.getElementById('popDiv').style.visibility = 'visible';
+    })
+</script>
+</body>
+</html>
