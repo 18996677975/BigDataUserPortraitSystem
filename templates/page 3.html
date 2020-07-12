@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>大数据画像系统-城市分布情况</title>
+    <script type="text/javascript" src="https://assets.pyecharts.org/assets/echarts.min.js"></script>
+
+    <style>
+        body {
+            margin: 0px;
+            padding: 0px;
+            background: black;
+            background-size: 100% 100%;
+        }
+
+        #main {
+            height: 1150px;
+            width: 100%;
+            margin: 0 auto;
+
+        }
+
+        .base_bg {
+            height: 100%;
+            width: 100%;
+            display: block;
+        }
+
+        .words {
+            width: 500px;
+            position: relative;
+            top: -1160px;
+            left: 60px;
+            color: white;
+            font-style: oblique;
+            font-size: 48px;
+        }
+
+        .words_ {
+            width: 600px;
+            position: relative;
+            top: -1233px;
+            left: 410px;
+            color: white;
+            font-style: oblique;
+            font-size: 28px;
+        }
+
+        #one {
+            height: 375px;
+            width: 375px;
+            border: 1px solid #334899;
+            position: relative;
+            top: -1350px;
+            left: 60px;
+            background-color: rgba(14, 28, 89, 0.5)
+        }
+
+        .border {
+            position: absolute;
+            padding: 8px;
+            border-style: solid;
+            border-color: #83ffff;
+        }
+
+        .row1 {
+            border-width: 3px 0 0 3px;
+            top: -3px;
+            left: -3px;
+        }
+
+        .row2 {
+            border-width: 3px 3px 0 0;
+            top: -3px;
+            right: -3px;
+        }
+
+        .col1 {
+            border-width: 0 0 3px 3px;
+            bottom: -3px;
+            left: -3px;
+        }
+
+        .col2 {
+            border-width: 0 3px 3px 0;
+            bottom: -3px;
+            right: -3px;
+        }
+
+        .one_word {
+            font-size: 28px;
+            color: #83ffff;
+            position: relative;
+            left: 20px;
+            top: -80px;
+        }
+
+        .woman_pic {
+            height: 125px;
+            width: 75px;
+            position: relative;
+            top: 75px;
+            left: -70px;
+        }
+
+        .man_pic {
+            height: 125px;
+            width: 75px;
+            position: relative;
+            top: 225px;
+            left: -155px;
+        }
+
+        .one_words1 {
+            position: relative;
+            font-size: 24px;
+            top: -40px;
+            left: 140px;
+            color: white;
+        }
+
+        #woman_count {
+            height: 50px;
+            width: 100px;
+            position: relative;
+            left: 165px;
+            top: -70px;
+            font-size: 35px;
+            color: #bdc28d;
+        }
+
+        .one_words2 {
+            position: relative;
+            font-size: 24px;
+            top: -40px;
+            left: 140px;
+            color: white;
+        }
+
+        #man_count {
+            height: 50px;
+            width: 100px;
+            position: relative;
+            left: 165px;
+            top: -70px;
+            font-size: 35px;
+            color: #bdc28d;
+        }
+
+        .one_decorate1 {
+            font-size: 28px;
+            color: rgba(248, 248, 248, 0.8);
+            position: relative;
+            top: -285px;
+            left: 280px;
+        }
+
+        .one_decorate2 {
+            font-size: 28px;
+            color: rgba(248, 248, 248, 0.5);
+            position: relative;
+            top: -375px;
+            left: 280px;
+        }
+
+        .one_decorate3 {
+            font-size: 28px;
+            color: rgba(248, 248, 248, 0.2);
+            position: relative;
+            top: -465px;
+            left: 280px;
+        }
+
+        .one_decorate1_ {
+            font-size: 28px;
+            color: rgba(248, 248, 248, 0.8);
+            position: relative;
+            top: -320px;
+            left: 280px;
+        }
+
+        .one_decorate2_ {
+            font-size: 28px;
+            color: rgba(248, 248, 248, 0.5);
+            position: relative;
+            top: -410px;
+            left: 280px;
+        }
+
+        .one_decorate3_ {
+            font-size: 28px;
+            color: rgba(248, 248, 248, 0.2);
+            position: relative;
+            top: -500px;
+            left: 280px;
+        }
+
+        #two {
+            height: 375px;
+            width: 375px;
+            border: 1px solid #334899;
+            position: relative;
+            top: -1727px;
+            left: 510px;
+            background-color: rgba(14, 28, 89, 0.5)
+        }
+
+        .two_word {
+            font-size: 28px;
+            color: #83ffff;
+            position: relative;
+            left: 20px;
+            top: 15px;
+        }
+
+        #two_content {
+            height: 312px;
+            width: 375px;
+            position: relative;
+            top: 16px;
+        }
+
+        #three {
+            height: 375px;
+            width: 875px;
+            border: 1px solid #334899;
+            position: relative;
+            top: -2104px;
+            left: 960px;
+            background-color: rgba(14, 28, 89, 0.5)
+        }
+
+        .three_word {
+            font-size: 28px;
+            color: #83ffff;
+            position: relative;
+            left: 20px;
+            top: 18px;
+        }
+
+        #three_content {
+            height: 375px;
+            width: 875px;
+            position: relative;
+            top: -10px;
+        }
+
+        #four {
+            height: 375px;
+            width: 500px;
+            border: 1px solid #334899;
+            position: relative;
+            top: -2030px;
+            left: 60px;
+            background-color: rgba(14, 28, 89, 0.5)
+        }
+
+        .four_word {
+            font-size: 28px;
+            color: #83ffff;
+            position: relative;
+            left: 20px;
+            top: 18px;
+        }
+
+        #four_content {
+            position: relative;
+            height: 375px;
+            width: 500px;
+        }
+
+        #five {
+            height: 375px;
+            width: 500px;
+            border: 1px solid #334899;
+            position: relative;
+            top: -2407px;
+            left: 635px;
+            background-color: rgba(14, 28, 89, 0.5)
+        }
+
+        .five_word {
+            font-size: 28px;
+            color: #83ffff;
+            position: relative;
+            left: 20px;
+            top: 18px;
+        }
+
+        .five_words1 {
+            color: white;
+            font-size: 26px;
+            position: relative;
+            top: 30px;
+            left: 65px;
+
+        }
+
+        .five_words2 {
+            color: white;
+            font-size: 26px;
+            position: relative;
+            top: -25px;
+            left: 65px;
+
+        }
+
+        .five_words3 {
+            color: white;
+            font-size: 26px;
+            position: relative;
+            top: -80px;
+            left: 65px;
+
+        }
+
+        #avg {
+            height: 50px;
+            width: 100px;
+            position: relative;
+            left: 220px;
+            top: -30px;
+            font-size: 35px;
+            color: #bdc28d;
+        }
+
+        #min {
+            height: 50px;
+            width: 100px;
+            position: relative;
+            left: 170px;
+            top: -85px;
+            font-size: 35px;
+            color: #bdc28d;
+        }
+
+        #max {
+            height: 50px;
+            width: 100px;
+            position: relative;
+            left: 170px;
+            top: -140px;
+            font-size: 35px;
+            color: #bdc28d;
+        }
+
+        #six {
+            height: 375px;
+            width: 625px;
+            border: 1px solid #334899;
+            position: relative;
+            top: -2784px;
+            left: 1210px;
+            background-color: rgba(14, 28, 89, 0.5)
+        }
+
+        .six_word {
+            font-size: 28px;
+            color: #83ffff;
+            position: relative;
+            left: 20px;
+            top: 18px;
+        }
+
+        #six_content {
+            position: relative;
+            height: 337px;
+            width: 625px;
+        }
+
+        #city_top {
+            width: 550px;
+            position: relative;
+            left: 1400px;
+            top: -1360px;
+        }
+
+        #city_top a {
+            text-decoration: none;
+            position: relative;
+            top: 60px;
+            left: 170px;
+            font-size: 27px;;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+<div id="all">
+    <div id="main">
+        <img class="base_bg" src="../static/images/3_1.jpg"/>
+
+        <h1 class="words">城市分布系统</h1>
+        <h3 class="words_">Urban distribution system</h3>
+        <div id="city_top">
+            <a href="{{ url_for('select') }}">{{ city_data['\ufeffplace'] }}画像数据</a>
+            {#    <a href="{{ url_for('select') }}">{{city_data['\ufeffplace']}}画像数据</a>#}
+            <img src="../static/images/3_2.jpg">
+        </div>
+
+        <div id="one"><!-- 性别分布-                         ------------------------------------------->
+            <span class="border row1"></span>
+            <span class="border row2"></span>
+            <span class="border col1"></span>
+            <span class="border col2"></span>
+            <span class="one_word">性别比例</span>
+            <img class="woman_pic" src="../static/images/3_3.png">
+            <img class="man_pic" src="../static/images/3_4.png">
+            <p class="one_words1">实时用户量</p>
+            <p id="woman_count">{{ city_data['womanNum'] }}</p>
+            <p class="one_words2">实时用户量</p>
+            <p id="man_count">{{ city_data['manNum'] }}</p>
+
+            <!--装饰----------------------------------------------------->
+            <p class="one_decorate1">+1</p>
+            <p class="one_decorate2">+1</p>
+            <p class="one_decorate3">+1</p>
+            <p class="one_decorate1_">+1</p>
+            <p class="one_decorate2_">+1</p>
+            <p class="one_decorate3_">+1</p>
+
+
+        </div>
+
+        <div id="two"><!-- 年龄分布-                         ------------------------------------------->
+            <span class="border row1"></span>
+            <span class="border row2"></span>
+            <span class="border col1"></span>
+            <span class="border col2"></span>
+            <span class="two_word">年龄分布</span>
+            <div id="two_content"></div>
+        </div>
+
+
+        <div id="three"><!-- 各职业人数-                         ------------------------------------------->
+            <span class="border row1"></span>
+            <span class="border row2"></span>
+            <span class="border col1"></span>
+            <span class="border col2"></span>
+            <span class="three_word">身份职业</span>
+            <div id="three_content"></div>
+        </div>
+
+        <div id="four"><!-- 受教育程度-                         ------------------------------------------->
+            <span class="border row1"></span>
+            <span class="border row2"></span>
+            <span class="border col1"></span>
+            <span class="border col2"></span>
+            <span class="four_word">受教育程度</span>
+            <div id="four_content"></div>
+        </div>
+
+        <div id="five"><!-- 收入水平-                         ------------------------------------------->
+            <span class="border row1"></span>
+            <span class="border row2"></span>
+            <span class="border col1"></span>
+            <span class="border col2"></span>
+            <span class="five_word">收入水平</span>
+            <p class="five_words1">该城市人均收入：{{ city_data['avgIncome'] }}</p>
+            <div id="avg"></div>
+            <p class="five_words2">最低收入：{{ city_data['minIncome'] }}</p>
+            <div id="min"></div>
+            <p class="five_words3">最高收入：{{ city_data['maxIncome'] }}</p>
+            <div id="max"></div>
+            <div id="five_content"></div>
+        </div>
+
+        <div id="six"><!--上网时间-                         ------------------------------------------->
+            <span class="border row1"></span>
+            <span class="border row2"></span>
+            <span class="border col1"></span>
+            <span class="border col2"></span>
+            <span class="six_word">上网时间分布</span>
+            <div id="six_content"></div>
+        </div>
+    </div>
+</div>
+<script>
+    var city = '{{ city_data['place'] }}';
+
+    //身份职业-----------------------------------------------------------
+    var three = echarts.init(document.getElementById('three_content'));
+    var option = {// 指定图表的配置项和数据
+
+        title: {//标题
+            text: ''
+        },
+        tooltip: {},//提示框
+        legend: {
+            data: ['']
+        },
+        xAxis: {
+            data: ['服务业', '汽车业', '餐饮业', '金融业', '旅游业', '教育业', '销售业', '化学业', '管理业', '土木业', '建筑业', '计算机业', '医疗业',
+                '设计业', '媒体业', '制造业', '会计业', '广告业', '服装业', '运输业', '公共关系业'],
+            axisLine: {
+                lineStyle: {
+                    color: '#fff',
+                }
+            },
+        },
+        yAxis: {
+            axisLine: {
+                lineStyle: {
+                    color: '#fff',
+                }
+            },
+        },
+        series: [{
+            color: '#2a6877',
+            type: 'bar',
+            data:{{ city_data['job'] }}
+        }]
+    };
+    three.setOption(option);
+
+    //年龄分布---------------------------------------------------------------------------------------------------------
+    var two = echarts.init(
+        document.getElementById('two_content'), '', {renderer: 'canvas'});
+    var option_two = {
+        "color": [
+            "#83ffff"
+        ],
+        "series": [
+            {
+                "type": "radar",
+                "name": "",
+                "data": [{{ city_data['age'] }}
+                ],
+                "label": {
+                    "show": false,
+                    "position": "top",
+                    "margin": 8
+                },
+                "itemStyle": {
+                    "normal": {}
+                },
+                "lineStyle": {
+                    "show": true,
+                    "width": 1,
+                    "opacity": 1,
+                    "curveness": 0,
+                    "type": "solid"
+                },
+                "areaStyle": {
+                    "opacity": 0
+                },
+                "rippleEffect": {
+                    "show": true,
+                    "brushType": "stroke",
+                    "scale": 2.5,
+                    "period": 4
+                }
+            },
+            {
+                "type": "radar",
+                "name": "年龄分布情况",
+                "data": [
+                    {{ city_data['age'] }}
+                ],
+                "label": {
+                    "show": false,
+                    "position": "top",
+                    "margin": 8
+                },
+                "itemStyle": {
+                    "normal": {}
+                },
+                "lineStyle": {
+                    "show": true,
+                    "width": 1,
+                    "opacity": 1,
+                    "curveness": 0,
+                    "type": "solid",
+                    "color": "#5CACEE"
+                },
+                "areaStyle": {
+                    "opacity": 0.3
+                },
+                "rippleEffect": {
+                    "show": true,
+                    "brushType": "stroke",
+                    "scale": 2.5,
+                    "period": 4
+                }
+            }
+        ],
+        "legend": [
+            {}
+        ],
+        "tooltip": {
+            "show": true,
+            "trigger": "item",
+            "triggerOn": "mousemove|click",
+            "axisPointer": {
+                "type": "line"
+            },
+            "textStyle": {
+                "fontSize": 15
+            },
+            "borderWidth": 0
+        },
+        "radar": {
+            "indicator": [
+                {
+                    "name": "15-20岁",
+                    "max": 1000
+                },
+                {
+                    "name": "20-25岁",
+                    "max": 1000
+                },
+                {
+                    "name": "25-30岁",
+                    "max": 1000
+                },
+                {
+                    "name": "30-35岁",
+                    "max": 1000
+                },
+                {
+                    "name": "35-40岁",
+                    "max": 1000
+                },
+                {
+                    "name": "40-45岁",
+                    "max": 1000
+                },
+                {
+                    "name": "45-50岁",
+                    "max": 1000
+                },
+                {
+                    "name": "55-60岁",
+                    "max": 1000
+                }
+            ],
+            "name": {
+                "textStyle": {
+                    "color": "#5CACEE"
+                }
+            },
+            "splitLine": {
+                "show": true,
+                "lineStyle": {
+                    "show": true,
+                    "width": 1,
+                    "opacity": 1,
+                    "curveness": 0,
+                    "type": "solid"
+                }
+            },
+            "splitArea": {
+                "show": true,
+                "areaStyle": {
+                    "opacity": 1
+                }
+            },
+            "axisLine": {
+                "show": true,
+                "onZero": true,
+                "onZeroAxisIndex": 0
+            }
+        },
+        "title": [{}]
+    };
+    two.setOption(option_two);
+
+
+    //受教育程度---------------------------------------------------------------------------------------------------------
+    var chart_four = echarts.init(
+        document.getElementById('four_content'), {renderer: 'canvas'});
+    var option_four = {
+        "color": [
+            "#40b799",
+            "#afe3b6",
+            "#87cfeb",
+            "#a4acd2",
+            "#8c92d0",
+            "#6876f1",
+        ],
+        "series": [
+            {
+                "type": "pie",
+                "clockwise": true,
+                "data": [
+                    {
+                        "name": "初中",
+                        "value": '{{ city_data['edu'][0] }}'
+                    },
+                    {
+                        "name": "高中",
+                        "value": '{{ city_data['edu'][1] }}'
+                    },
+                    {
+                        "name": "专科",
+                        "value": '{{ city_data['edu'][2] }}'
+                    },
+                    {
+                        "name": "本科",
+                        "value": '{{ city_data['edu'][3] }}'
+                    },
+                    {
+                        "name": "硕士",
+                        "value": '{{ city_data['edu'][4] }}'
+                    },
+                    {
+                        "name": "博士",
+                        "value": '{{ city_data['edu'][5] }}'
+                    },
+                ],
+                roseType: 'angle',
+                "radius": [//半径
+                    "0%",
+                    "70%"
+                ],
+                "center": [
+                    "50%",
+                    "50%"
+                ],
+                "label": {
+                    "show": true,
+                    "position": "top",
+                    "margin": 8,
+                    "formatter": "{b}\n {c}"
+                },
+            }
+        ],
+        "tooltip": {//工具提示
+            "show": true,
+            "trigger": "item",
+            "triggerOn": "mousemove|click",
+            "axisPointer": {
+                "type": "line"
+            },
+            "textStyle": {
+                "fontSize": 18
+            },
+            "borderWidth": 0
+        },
+    };
+    chart_four.setOption(option_four);
+
+
+    //上网时间分布---------------------------------------------------------------------------------
+    //初始化ehcharts实例
+    var chart_six = echarts.init(document.getElementById("six_content"));
+    //指定图表的配置项和数据
+    var option_six = {
+        "color": [
+            "#6fffd6",
+        ],
+        //x轴
+        xAxis: {
+            data: ["交通APP", "通信", "生活服务", "娱乐", "新闻", "工具"],
+            axisLabel: {
+                show: true,
+                interval: 0,    //横轴信息全部显示
+                textStyle: {
+                    color: 'white'
+                },
+            },
+            boundaryGap: true,
+            axisLine: {
+                lineStyle: {
+                    color: '#fff',
+                }
+            },
+        },
+
+        yAxis: {
+            min: 139,
+            max: 141,
+            interval: 0.5,
+            axisLabel: {
+                show: true,
+                textStyle: {
+                    color: 'white'
+                },
+            },
+            axisLine: {
+                lineStyle: {
+                    color: '#fff',
+                }
+            },
+        },
+
+        //数据-data是最终要显示的数据
+        //有问题
+
+        series: [{
+            name: '上网时间分布',
+            type: 'line',
+            data:{{ city_data['sur_time'] }}
+        }],
+
+        //
+        "tooltip": {//工具提示
+            "show": true,
+            "trigger": "item",
+            "triggerOn": "mousemove|click",
+            "axisPointer": {
+                "type": "line",
+            },
+            "textStyle": {
+                "fontSize": 18,
+            },
+            "borderWidth": 0,
+        },
+    };
+    //使用刚刚指定的配置项和数据项显示图表
+    chart_six.setOption(option_six);
+</script>
+</body>
+</html>

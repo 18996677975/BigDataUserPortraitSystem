@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>大数据画像系统-城市消费特征情况</title>
+    <script type="text/javascript" src="https://assets.pyecharts.org/assets/echarts.min.js"></script>
+    <style>
+        body {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        #like {
+            height: 1020px;
+            width: 100%;
+            overflow: hidden;
+            margin: 0px;
+            padding: 0px;
+            background: black;
+            position: relative;
+        }
+
+        #main {
+            height: 1850px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        .base_bg {
+            height: 55%;
+            width: 100%;
+        }
+
+        .like_words1 {
+            position: relative;
+            top: -1030px;
+            left: 50px;
+            color: #FFFFFF;
+            font-style: oblique;
+            font-size: 45px;
+        }
+
+        .like_words2 {
+            position: relative;
+            top: -1100px;
+            left: 360px;
+            color: #FFFFFF;
+            font-style: oblique;
+            font-size: 26px;
+        }
+
+        #sex {
+            height: 400px;
+            width: 1000px;
+            border: 1px solid #334899;
+            position: relative;
+            top: -1165px;
+            margin: 0 auto;
+            background-color: rgba(14, 28, 89, 0.5)
+        }
+
+        #age {
+            height: 400px;
+            width: 1000px;
+            border: 1px solid #334899;
+            position: relative;
+            top: -1110px;
+            margin: 0 auto;
+            background-color: rgba(14, 28, 89, 0.5)
+        }
+
+        #city_top {
+            width: 440px;
+            position: relative;
+            left: 1300px;
+            top: -1205px;
+        }
+
+        #city_top a {
+            text-decoration: none;
+            position: relative;
+            top: 60px;
+            left: 170px;
+            font-size: 28px;;
+            color: white;
+        }
+
+        .border {
+            position: absolute;
+            padding: 8px;
+            border-style: solid;
+            border-color: #83ffff;
+        }
+
+        .row1 {
+            border-width: 3px 0 0 3px;
+            top: -3px;
+            left: -3px;
+        }
+
+        .row2 {
+            border-width: 3px 3px 0 0;
+            top: -3px;
+            right: -3px;
+        }
+
+        .col1 {
+            border-width: 0 0 3px 3px;
+            bottom: -3px;
+            left: -3px;
+        }
+
+        .col2 {
+            border-width: 0 3px 3px 0;
+            bottom: -3px;
+            right: -3px;
+        }
+    </style>
+</head>
+
+<body>
+<div id=like>
+    <div id="main">
+        <img class="base_bg" src="../static/images/4_1.jpg"/>
+        <h1 class="like_words1">消费偏好统计</h1>
+        <h3 class="like_words2">Consumption preference statistics</h3>
+        <div id="city_top">
+            <a href="{{ url_for('select') }}">{{ data['place'] }}画像数据</a>
+            <img src="../static/images/3_2.jpg" style="z-index: 1">
+        </div>
+
+        <div id="sex">
+            <span class="border row1"></span>
+            <span class="border row2"></span>
+            <span class="border col1"></span>
+            <span class="border col2"></span>
+        </div>
+
+        <div id="age">
+            <span class="border row1"></span>
+            <span class="border row2"></span>
+            <span class="border col1"></span>
+            <span class="border col2"></span>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    //--------------------- 不同性别消费偏好统计-------------------------
+    var sexChart = echarts.init(document.getElementById("sex"));
+
+    // option 里面的内容基本涵盖你要画的图表的所有内容
+    var sex_option = {
+        // 定义样式和数据
+        title: {
+            show: true,
+            textStyle: {
+                fontWeight: "normal",
+                color: "#fff",
+            },
+            text: '不同性别下的消费偏好',
+            left: "center"
+        },
+
+        tooltip: {
+            trigger: 'axis'
+        },
+
+        toolbox: {
+            show: true,
+            feature: {
+                magicType: {
+                    type: ['line', 'bar']   //切换为折线图，切换为柱状图
+                },
+                saveAsImage: {}   //保存为图片
+            },
+            iconStyle: {
+                normal: {
+                    color: 'white',//设置颜色
+                    borderColor: 'white',
+                }
+            }
+        },
+        legend: {
+            data: ['男', '女'],
+            x: 'center',      //可设定图例在左、右、居中
+            y: 'bottom',     //可设定图例在上、下、居中
+            textStyle: {
+                color: '#FFFFFF'
+            }
+        },
+
+        calculable: true,
+
+
+        xAxis: [{
+            axisLabel: {
+                interval: 0
+            },
+            axisLine: {
+                lineStyle: {
+                    color: '#FFFFFF'
+                }
+            },
+            type: 'category',
+            boundaryGap: false,
+            data: ["学习", "衣服", "家电", "鞋子", "电子产品", "食品"],
+        }],
+        yAxis: [{
+            type: 'value',
+            axisLine: {
+                lineStyle: {
+                    color: '#FFFFFF'
+                }
+            }
+        }],
+        series: [{
+            name: '男',
+            type: 'line',
+            smooth: 0.3,
+            symbolSize: 8,     //拐点大小
+            color: ['#00A0EA'],
+            data: {{ data['man_type'] }},
+            //{#data: [10824, 35924, 3520, 21526, 3532, 21815],#}
+            markPoint:
+                {
+                    // 标注图形数据
+                    data: [{
+                        type: 'max', // 类型
+                        symbol: 'pin', // 标志图形类型，默认自动选择（8种类型循环使用，不显示标志图形可设为'none'），默认循环选择类型有：'circle' | 'rectangle' | 'triangle' | 'diamond' |'emptyCircle' | 'emptyRectangle' | 'emptyTriangle' | 'emptyDiamond' 另外，还支持五种更特别的标志图形'heart'（心形）、'droplet'（水滴）、'pin'（标注）、'arrow'（箭头）和'star'（五角星），这并不出现在常规的8类图形中，但无论是在系列级还是数据级上你都可以指定使用，同时，'star' + n（n>=3)可变化出N角星，如指定为'star6'则可以显示6角星
+                        name: '最大值'
+                    }, {
+                        type: 'min', // 类型
+                        symbol: 'pin',
+                        name: '最小值'
+                    },
+                    ],
+                }
+        }, {
+            name: '女',
+            type: 'line',
+            smooth: 0.3,
+            symbolSize: 8,     //拐点大小
+            color: ['#F47B80'],
+            data: {{ data['woman_type'] }},
+            {#//data: [6998, 22998, 2248, 13990, 2368, 13822],#}
+        },
+        ],
+    };
+
+    // 使用刚指定的配置项和数据显示图表。
+    sexChart.setOption(sex_option);
+
+
+    //----------------- 不同年龄下的消费偏好统计----------------------------
+    var ageChart = echarts.init(document.getElementById('age'));
+    var age_option = {
+        tooltip: {
+            show: true
+        },
+        title: {
+            show: true,
+            textStyle: {
+                fontWeight: "normal",
+                color: "#fff",
+            },
+            text: '不同年龄段下的消费偏好',
+            left: "center"
+        },
+
+        toolbox: {
+            show: true,
+            feature: {
+                magicType: {
+                    type: ['line', 'bar']
+                },  //切换为折线图，切换为柱状图
+                saveAsImage: {}   //保存为图片
+            },
+            iconStyle: {
+                normal: {
+                    color: 'white',//设置颜色
+                    borderColor: 'white',
+                }
+            }
+        },
+        legend: {
+            data: ['15-25', '25-35', '35-45', '45+'],
+            x: 'center',      //可设定图例在左、右、居中
+            y: 'bottom',     //可设定图例在上、下、居中
+            textStyle: {
+                color: '#FFFFFF'
+            }
+        },
+        color: ["#FFBE00", "#00E2DF", "#2A68E3", "#F47E7E"],
+        xAxis: [{
+            axisLine: {
+                lineStyle: {
+                    color: '#FFFFFF'
+                }
+            },
+            type: 'category',
+            data: ["学习", "衣服", "家电", "鞋子", "电子产品", "食品"],
+        }],
+        yAxis: [{
+            type: 'value',
+            axisLine: {
+                lineStyle: {
+                    color: '#FFFFFF'
+                }
+            }
+        }],
+
+
+        series: [
+            {
+                "name": "15-25",
+                "type": "bar",
+                data:  {{ data['15_25_type'] }},
+                {#//data: [3839, 12516, 1233, 7652, 1247, 7637],#}
+                markPoint:
+                    {
+                        // 标注图形数据
+                        data: [{
+                            type: "average", // 类型
+                            symbol: 'pin', // 、'droplet'（水滴）、'pin'（标注）、
+                            name: '平均值'
+                        }
+                        ],
+                    }
+            },
+            {
+                "name": "25-35",
+                "type": "bar",
+                data: {{ data['25_35_type'] }},
+                {#//data: [3881, 12915, 1228, 7747, 1274, 7705],#}
+                markPoint:
+                    {
+                        // 标注图形数据
+                        data: [{
+                            type: 'min', // 类型
+                            symbol: 'pin',
+                            name: '最小值'
+                        }
+                        ],
+                    }
+            },
+            {
+                "name": "35-45",
+                "type": "bar",
+                data:  {{ data['35_45_type'] }},
+                {#//data: [3847, 12989, 1282, 7755, 1292, 7804],#}
+                markPoint:
+                    {
+                        // 标注图形数据
+                        data: [{
+                            type: "average", // 类型
+                            symbol: 'pin', // 标志图形类型，默认自动选择（8种类型循环使用，不显示标志图形可设为'none'），默认循环选择类型有：'circle' | 'rectangle' | 'triangle' | 'diamond' |'emptyCircle' | 'emptyRectangle' | 'emptyTriangle' | 'emptyDiamond' 另外，还支持五种更特别的标志图形'heart'（心形）、'droplet'（水滴）、'pin'（标注）、'arrow'（箭头）和'star'（五角星），这并不出现在常规的8类图形中，但无论是在系列级还是数据级上你都可以指定使用，同时，'star' + n（n>=3)可变化出N角星，如指定为'star6'则可以显示6角星
+                            name: '平均值'
+                        }
+                        ],
+                    }
+            }, {
+                "name": "45+",
+                "type": "bar",
+                data:  {{ data['over_45_type'] }},
+                {#//data: [6255, 20502, 2025, 12362, 2087, 12491],#}
+                markPoint:
+                    {
+                        // 标注图形数据
+                        data: [{
+                            type: "max", // 类型
+                            symbol: 'pin', // 标志图形类型，默认自动选择（8种类型循环使用，不显示标志图形可设为'none'），默认循环选择类型有：'circle' | 'rectangle' | 'triangle' | 'diamond' |'emptyCircle' | 'emptyRectangle' | 'emptyTriangle' | 'emptyDiamond' 另外，还支持五种更特别的标志图形'heart'（心形）、'droplet'（水滴）、'pin'（标注）、'arrow'（箭头）和'star'（五角星），这并不出现在常规的8类图形中，但无论是在系列级还是数据级上你都可以指定使用，同时，'star' + n（n>=3)可变化出N角星，如指定为'star6'则可以显示6角星
+                            name: '最大值'
+                        }
+                        ],
+                    }
+            }
+        ]
+    };
+
+    // 为echarts对象加载数据
+    ageChart.setOption(age_option);
+</script>
+</body>
+</html>

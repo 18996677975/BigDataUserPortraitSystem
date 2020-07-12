@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>大数据画像系统-用户信息</title>
+    <Style>
+        body {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        /*总一*/
+        #navigation { /*顶部导航*/
+            width: 100%;
+            height: 72px;
+            background-color: #0c4d98;
+        }
+
+        .topCity {
+            height: 60px;
+            width: 15%;
+            position: relative;
+            border-left: 1px solid rgba(88, 153, 206, 0.5);
+            border-right: 1px solid rgba(88, 153, 206, 0.5);
+            font-size: 30px;
+            color: white;
+            text-align: center;
+            padding-top: 18px;
+        }
+
+        /*---------------------------------------------------------------左侧导航*/
+        /*整体部分*/
+        .body {
+            position: absolute;
+            height: 100%;
+            width: 15%;
+            overflow: hidden;
+        }
+
+        /*左侧导航栏*/
+        .left {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: #142D51;
+        }
+
+        #pilot {
+            position: relative;
+            left: 74px;
+            top: 20px;
+        }
+
+        #show {
+            margin-top: 3%;
+            margin-left: 43%;
+            display: none;
+        }
+
+        #hidden {
+            margin-top: 3%;
+            margin-left: 39%;
+        }
+
+        #show_hidden {
+            position: relative;
+            width: 100%;
+            height: 5%;
+            background-color: #28446C;
+            top: 0px;
+        }
+
+        #home_pilot {
+            position: relative;
+            top: 70px;
+            left: 10px;
+        }
+
+        #people_pilot {
+            float: left;
+            position: relative;
+            top: 17px;
+            left: 10px;
+        }
+
+        #city_pilot {
+            float: left;
+            position: relative;
+            top: 22px;
+            left: 10px;
+        }
+
+        #count_pilot {
+            float: left;
+            position: relative;
+            top: 22px;
+            left: 10px;
+        }
+
+        /*导航栏列表*/
+        .left ul {
+            position: relative;
+            left: -90px;
+            top: -40px;
+            color: white;
+            list-style-type: none;
+            font-size: 25px;
+            line-height: 60px;
+        }
+
+        ul li a:link, a:visited {
+            display: block;
+            color: #8297B3;
+            width: 100%;
+            text-align: center;
+            padding: 4px;
+            text-decoration: none;
+            text-transform: uppercase;
+        }
+
+        ul li a:hover, a:active {
+            color: #FFFFFF;
+        }
+
+        #total1 {
+            margin: 0 auto;
+            width: 85%;
+            float: right;
+            border-top: 5px solid #F0F2F5;
+            border-bottom: 50px solid #F0F2F5;
+            border-left: 0px solid #F0F2F5;
+            border-right: 0px solid #F0F2F5;
+            display: block;
+        }
+
+        /*主体*/
+        .main {
+            padding-top: 15px;
+            padding-left: 25px;
+            padding-right: 25px;
+            padding-bottom: 30px;
+            font-size: 20px;
+        }
+
+        /*多选之后的那个输入框*/
+        #name {
+            margin-left: 5px;
+            padding-left: 10px;
+            padding-top: 5px;
+            height: 27px;
+            width: 200px;
+            border: 1px solid lightgrey;
+            margin-bottom: 15px;
+            border-radius: 5px 5px 5px 5px;
+            font-size: 20px;
+        }
+
+        /*搜索按钮*/
+        #search, #reset {
+            font-size: 20px;
+            height: 36px;
+            width: 70px;
+            display: inline-block;
+            background-color: #5899ce;
+            color: white;
+            padding-top: 3px;
+            padding-bottom: 2px;
+            margin-left: 5px;
+            border-radius: 5px 5px 5px 5px;
+            border: 1px solid lightgrey;
+            text-align: center;
+            font-family: 楷体;
+            font-weight: lighter;
+        }
+
+
+        /*第一张表*/
+        #table1 {
+            border: 1px lightgrey solid;
+            width: 100%;
+            border-right: none;
+            border-left: none;
+        }
+
+        /*表头*/
+        .tableTitle {
+            background-color: #e0e0e0;
+        }
+
+        #table1 th {
+            height: 50px;
+        }
+
+        /*第一张表中的单元格格式*/
+        #table1 td {
+            height: 35px;
+            text-align: center;
+            padding: 5px 10px;
+        }
+
+        /*每一列格式*/
+        .col1, .col2, .col3, .col4, .col5, .col6, .col7 {
+            width: 150px;
+        }
+
+        /*第一张表中最下面的表格导航*/
+        #lowerLbl {
+            padding-top: 50px;
+        }
+
+        /*第一张表中最下面的表格导航中的p的格式*/
+        #lowerLbl p {
+            color: gray;
+            display: inline;
+            font-size: 20px;
+        }
+
+        #lowerLbl select {
+            color: gray;
+            height: 32px;
+            width: 100px;
+            border-radius: 5px;
+            padding-left: 5px;
+            margin-left: 5px;
+            font-size: 20px;
+        }
+
+        #lowerLbl button {
+            width: 32px;
+            height: 32px;
+            background-color: #F0F2F5;
+            color: gray;
+            padding-top: 2px;
+            border-radius: 5px;
+            border: none;
+            font-size: 20px;
+        }
+
+        #lowerLbl input {
+            padding-top: 2px;
+            width: 35px;
+            height: 32px;
+            border-radius: 5px;
+            border: 1px solid gray;
+            text-align: center;
+            font-size: 20px;
+        }
+
+    </Style>
+</head>
+
+<body>
+
+<div id="navigation">
+    <div class="topCity">{{ data[0][0] }}用户信息</div>
+</div><!-- 顶部导航，可返回到首页----------------------------------------->
+
+<!-- 左侧导航----------------------------------------->
+<div class="body">
+    <div class="left">
+
+        <div id="show_hidden">
+            <img id="hidden" src="../static/images/2_1.jpg"/>
+            <img id="show" src="../static/images/2_1.jpg"/>
+        </div>
+        <div id="pilot">
+            <ul>
+                <img id="home_pilot" src="../static/images/2_2.jpg"/>
+                <li><a href='{{ url_for('home_page') }}'>首页</a></li>
+                <img id="people_pilot" src="../static/images/2_3.jpg"/>
+                <li><a href='{{ url_for('select') }}'>用户信息</a></li>
+                <img id="city_pilot" src="../static/images/2_4.jpg"/>
+                <li><a href="{{ url_for('city_display') }}">城市概况</a></li>
+                <img id="count_pilot" src="../static/images/2_5.jpg"/>
+                <li><a href="{{ url_for('Preference') }}">消费偏好</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+<div id="total1">
+    <div class="main">
+        <div>
+            <form action="{{ url_for('ones_select') }}" method="post">
+                <span id="s">用户名称:</span>
+                <input type="text" name="name" id="name" placeholder="请输入用户名称"/>
+                {#                <input type="button" name="search" id="search" value="搜索" onclick="mySearch()"/>#}
+                <input type="submit" name="search" id="search" value="搜索"/>
+                <input type="submit" name="reset" id="reset" value="重置" onclick="reset()"/>
+            </form>
+        </div>
+        <div>
+            <form action='{{ url_for('per_portrait') }}' method="post" target="_blank">
+                <table id="table1" cellspacing="0px">
+                    <thead class="tableTitle">
+                    <th class="col1">用户名称</th>
+                    <th class="col2">性别</th>
+                    <th class="col3">年龄</th>
+                    <th class="col4">职业</th>
+                    <th class="col5">收入</th>
+                    <th class="col6">教育水平</th>
+                    <th class="col7">个人画像</th>
+                    <th id="onlyId" style="display: none"></th>
+                    <!--唯一标识--------------------------------------------------------------->
+                    </thead>
+                    <tbody>
+                    {% if num>50 %}
+                        {% for i in range(50) %}
+                            {% if i%2==0 %}
+                                <tr>
+                                    <td>{{ data[i][1] }}</td>
+                                    <td>{{ data[i][2] }}</td>
+                                    <td>{{ data[i][3] }}</td>
+                                    <td>{{ data[i][4] }}</td>
+                                    <td>{{ data[i][5] }}</td>
+                                    <td>{{ data[i][6] }}</td>
+                                    <td style="display: none">{{ data[i][7] }}</td>
+                                    <td>
+                                        <button type="submit" style="font-size: 20px"
+                                                name="search" value='{{ data[i][7] }}'>查看
+                                        </button>
+                                    </td>
+                                </tr>
+                            {% else %}
+                                <tr style="background:#f8f8f8">
+                                    <td>{{ data[i][1] }}</td>
+                                    <td>{{ data[i][2] }}</td>
+                                    <td>{{ data[i][3] }}</td>
+                                    <td>{{ data[i][4] }}</td>
+                                    <td>{{ data[i][5] }}</td>
+                                    <td>{{ data[i][6] }}</td>
+                                    <td style="display: none">{{ data[i][7] }}</td>
+                                    <td>
+                                        <button type="submit" style="font-size: 20px"
+                                                name="search" value='{{ data[i][7] }}'>查看
+                                        </button>
+                                    </td>
+                                </tr>
+                            {% endif %}
+                        {% endfor %}
+                    {% else %}
+                        {% if num==0 %}
+                            {% for i in range(50) %}
+                                {% if i%2==0 %}
+                                    <tr>
+                                        <td>{{ data[i][1] }}</td>
+                                        <td>{{ data[i][2] }}</td>
+                                        <td>{{ data[i][3] }}</td>
+                                        <td>{{ data[i][4] }}</td>
+                                        <td>{{ data[i][5] }}</td>
+                                        <td>{{ data[i][6] }}</td>
+                                        <td style="display: none">{{ data[i][7] }}</td>
+                                        <td>
+                                            <button type="submit" style="font-size: 20px"
+                                                    name="search" value='{{ data[i][7] }}'>查看
+                                            </button>
+                                        </td>
+                                    </tr>
+                                {% else %}
+                                    <tr style="background:#f8f8f8">
+                                        <td>{{ data[i][1] }}</td>
+                                        <td>{{ data[i][2] }}</td>
+                                        <td>{{ data[i][3] }}</td>
+                                        <td>{{ data[i][4] }}</td>
+                                        <td>{{ data[i][5] }}</td>
+                                        <td>{{ data[i][6] }}</td>
+                                        <td style="display: none">{{ data[i][7] }}</td>
+                                        <td>
+                                            <button type="submit" style="font-size: 20px"
+                                                    name="search" value='{{ data[i][7] }}'>查看
+                                            </button>
+                                        </td>
+                                    </tr>
+                                {% endif %}
+                            {% endfor %}
+                        {% else %}
+                            {% for i in range(num) %}
+                                {% if i%2==0 %}
+                                    <tr>
+                                        <td>{{ data[i][1] }}</td>
+                                        <td>{{ data[i][2] }}</td>
+                                        <td>{{ data[i][3] }}</td>
+                                        <td>{{ data[i][4] }}</td>
+                                        <td>{{ data[i][5] }}</td>
+                                        <td>{{ data[i][6] }}</td>
+                                        <td style="display: none">{{ data[i][7] }}</td>
+                                        <td>
+                                            <button type="submit" style="font-size: 20px"
+                                                    name="search" value='{{ data[i][7] }}'>查看
+                                            </button>
+                                        </td>
+                                    </tr>
+                                {% else %}
+                                    <tr style="background:#f8f8f8">
+                                        <td>{{ data[i][1] }}</td>
+                                        <td>{{ data[i][2] }}</td>
+                                        <td>{{ data[i][3] }}</td>
+                                        <td>{{ data[i][4] }}</td>
+                                        <td>{{ data[i][5] }}</td>
+                                        <td>{{ data[i][6] }}</td>
+                                        <td style="display: none">{{ data[i][7] }}</td>
+                                        <td>
+                                            <button type="submit" style="font-size: 20px"
+                                                    name="search" value='{{ data[i][7] }}'>查看
+                                            </button>
+                                        </td>
+                                    </tr>
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                    {% endif %}
+                    </tbody>
+                </table>
+            </form>
+            <div id="lowerLbl" align="right">
+                <p>共</p>
+                <p id="rowsNum">0</p>
+                <p>条</p>
+                <select id="sel" onclick="pagination()">
+                    <option id="opt0" value="10">10条/页</option>
+                    <option id="opt1" value="20">20条/页</option>
+                    <option id="opt2" value="50">50条/页</option>
+                </select>
+                &nbsp;
+                <button onclick="last()"><</button>
+                <button id="pno" style="background-color: #5899ce; color: white">1</button>
+                <button onclick="next()">></button>
+                &nbsp;
+                <p>前往</p>
+                <input type="text" id="gopg" onclick="gopage()"/>
+                <p>页</p>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<script>
+    var table = document.getElementById('table1');
+    var row = table.insertRow(table.rows.length);
+    // 获取table有多少行
+    var num = table.rows.length - 2;
+    // 将行数写入
+    var rowsNumber = document.getElementById("rowsNum");
+    rowsNumber.innerHTML = num;
+    pagination();
+
+    // 下一页
+    function next() {
+        // 获取table1
+        var table = document.getElementById("table1");
+        var num = table.rows.length - 2;
+
+        // 获取当前页面
+        var page = document.getElementById("pno").innerText;
+        page = parseInt(page);
+
+        // 获取每页显示多少条数据
+        var index = document.getElementById("sel").selectedIndex;
+        var opt = document.getElementById("opt" + index).value;
+        opt = parseInt(opt);
+
+        // 总页数
+        var pageSum = Math.ceil((num) / opt);
+
+        // 如果下一页小于总页数，则跳转到下一页，否则报出提示
+        if (page < pageSum) {
+            page = page + 1;
+            document.getElementById("pno").innerText = page;
+            for (var i = ((page - 2) * opt) + 1; i < ((page - 1) * opt) + 1; i++) {
+                table.rows[i].style.display = "none";
+            }
+            for (var i = ((page - 1) * opt) + 1; i < (page * opt) + 1; i++) {
+                table.rows[i].style.display = "table-row";
+            }
+        } else {
+            window.alert("该页为最后一页，无法前往下一页！")
+        }
+    }
+
+    // 上一页
+    function last() {
+        // 获取table1
+        var table = document.getElementById("table1");
+        var num = table.rows.length - 1;
+
+        // 获取当前页面
+        var page = document.getElementById("pno").innerText;
+        page = parseInt(page);
+
+        // 获取每页显示多少条数据
+        var index = document.getElementById("sel").selectedIndex;
+        var opt = document.getElementById("opt" + index).value;
+        opt = parseInt(opt);
+
+        // 如果是首页，则报出提示，否则跳转到上一页
+        if (page > 1) {
+            document.getElementById("pno").innerText = page - 1;
+            for (var i = ((page - 2) * opt) + 1; i < ((page - 1) * opt) + 1; i++) {
+                table.rows[i].style.display = "table-row";
+            }
+            for (var i = ((page - 1) * opt) + 1; i < (page * opt) + 1; i++) {
+                table.rows[i].style.display = "none";
+            }
+        } else {
+            window.alert("该页为第一页，无法前往上一页")
+        }
+    }
+
+    // 分页
+    function pagination() {
+        // 获取table1
+        var table = document.getElementById("table1");
+        var num = table.rows.length - 1;
+
+        // 获取每页显示多少条数据
+        var index = document.getElementById("sel").selectedIndex;
+        var opt = document.getElementById("opt" + index).value;
+        opt = parseInt(opt);
+
+        // 跳转到首页
+        document.getElementById("pno").innerText = 1;
+        for (var i = 1; i < opt + 1; i++) {
+            table.rows[i].style.display = "table-row";
+        }
+        for (var i = opt + 1; i < num + 1; i++) {
+            table.rows[i].style.display = "none";
+        }
+    }
+
+
+    function gopage() {
+        // 获取table1
+        var table = document.getElementById("table1");
+        var num = table.rows.length - 1;
+
+        // 获取跳转页面
+        var page = document.getElementById("gopg").value;
+        page = parseInt(page);
+
+        // 获取每页显示多少条数据
+        var index = document.getElementById("sel").selectedIndex;
+        var opt = document.getElementById("opt" + index).value;
+        opt = parseInt(opt);
+
+        // 总页数
+        var pageSum = 5;
+
+        if (page < pageSum) {
+            for (var i = ((page - 1) * opt) + 1; i < (page * opt) + 1; i++) {
+                table.rows[i].style.display = "table-row";
+            }
+            for (var i = 1; i < ((page - 1) * opt) + 1; i++) {
+                table.rows[i].style.display = "none";
+            }
+            for (var i = (page * opt) + 1; i < num + 1; i++) {
+                table.rows[i].style.display = "none";
+            }
+            document.getElementById("pno").innerText = page;
+        }
+        if (page == pageSum) {
+            for (var i = ((page - 1) * opt) + 1; i < num + 1; i++) {
+                table.rows[i].style.display = "table-row";
+            }
+            for (var i = 1; i < ((page - 1) * opt) + 1; i++) {
+                table.rows[i].style.display = "none";
+            }
+            document.getElementById("pno").innerText = page;
+        }
+        if (page > pageSum) {
+            window.alert("您输入的页码超出总页码，请重新输入")
+        }
+    }
+
+    function reset() {
+        document.getElementById("name").value = "";
+    }
+
+    onload = function () {
+        if ({{ num }}==0
+    )
+        {
+            window.alert("您查找用户不在本城市数据中，请重新输入")
+        }
+    }
+</script>
+</body>
+</html>
