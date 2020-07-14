@@ -54,3 +54,20 @@ table.scan(filter="ValueFilter(=, 'substring:%s')" % place[i])，其中place是�
 2、城市概况及其个人画像选择页面：该页面首先展示城市概况，比如：性别比例、收入水平、年龄水平、上网时间分布四个方面可视化展示；再进入数据预览的界面，通过查询框找出具体的个人，点击查看后跳转到个人画像（第三个页面）；
 3、个人画像页面：该页面主要展示个人画像和个人信息数据可视化，以及用户特征图、用户消费行为图、用户互联网行为图。再加上一些用户的主要信息如消费次数、消费金额、主要消费方向的成列等。
 
+![](https://s1.ax1x.com/2020/07/14/Ua3nH0.png)
+
+![](https://s1.ax1x.com/2020/07/14/Ua3KEV.png)
+
+![](https://s1.ax1x.com/2020/07/14/Ua3MNT.png)
+
+![](https://s1.ax1x.com/2020/07/14/Ua3334.png)
+
+![](https://s1.ax1x.com/2020/07/14/Ua38gJ.png)
+
+![](https://s1.ax1x.com/2020/07/14/Ua3tD1.png)
+
+![](https://s1.ax1x.com/2020/07/14/Ua3dUK.png)
+
+![](https://s1.ax1x.com/2020/07/14/Ua3cDI.png)
+
+![](https://s1.ax1x.com/2020/07/14/Ua3RVP.png)
